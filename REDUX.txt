@@ -1,0 +1,38 @@
+//////////////////
+///CONNECTING////
+//////////////////
+==> npm install redux --save
+==> npm install react-redux --save
+==> npm install axios --save
+//GO TO INDEX
+==>import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';//MUDDLEWARE WAIT UNTIL
+import reducers from "./store/reducers";
+
+const createStoreWithMiddleware = applyMiddleware()(createStore);
+
+
+ReactDOM.render(
+  <Provider store={createStoreWithMiddleware()}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+//CREATE STORE INSIDE CREATE FOLDER REDUCERS AND FOLDER ACTION
+// CREATE INDEX.JS INSIDE FOLDER REDUCER TO COMBINE ALL REDUCER
+// CREATE MOVIES_REDUCER.JS INSIDE FOLDER REDUCER
+INDEX.JS BELOW
+==>import { combineReducers } from 'redux';
+import movies from './movies_reducer';// IMPORT ALL REDUCER HERE
+
+const rootReducer = combineReducers({// THEN COMBINE REDUCER AS BELOW
+    movies
+    // USER
+    // POST
+});
+
+export default rootReducer;
