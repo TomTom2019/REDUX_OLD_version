@@ -34,5 +34,104 @@ const rootReducer = combineReducers({// THEN COMBINE REDUCER AS BELOW
     // USER
     // POST
 });
-
 export default rootReducer;
+//////////////////
+///REDUX DEVTOOLS/
+//////////////////
+==> npm install --save redux-promise
+// INDEX.JS  BELOW
+==>import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reducers from './store/reducers';
+import promiseMiddleware from 'redux-promise';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const createStoreWithMiddleware = composeEnhancers(
+  applyMiddleware(promiseMiddleware)
+)(createStore);
+
+ReactDOM.render(
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
+//// MOVIES_REDUCER.js  BELOW
+==>const DEFAULT_STORE = {// STATE = DEFAULT_STORE
+    userName:'Francis',
+    userId:1234
+}
+
+                                  // PUT DEFAULT_STORE BELOW
+export default function appReducer(state=DEFAULT_STORE,action){
+    switch(action.type){
+        case 'MOVIES_LIST':
+            return action.payload
+        default:
+            return state
+    }
+}
+/////////////
+///ACTION////
+/////////////
+//INSIDE FOLDER ACTION  CREATE INDEX.JS
+==>
+
+export const moviesList = () => {
+    return {
+        type:'MOVIES_LIST',// MOVIES_LIST FROM MOVIES_REDUCER
+        payload:[
+            {id:1,name:'Pulp fiction'},
+            {id:2,name:'Pacific Rim'},
+            {id:3,name:'Rambo'}
+        ]
+    }
+}
+// HOME.JS
+==>import React,{ Component } from 'react';
+import { connect } from 'react-redux';// CONNECT
+import { moviesList } from '../store/actions';
+
+class Home extends Component{
+
+    getMoviesHandler(){
+        this.props.dispatch(moviesList())// DISPATCH NEED ACTION.JS
+        // DISPATCH SENT TO MOVIES_REDUCER.JS
+
+    }
+
+    render(){
+        console.log(this.props)// CONNECT INJET PROPS AND HAVE DISPATCH
+        return(
+            <>
+                <button onClick={()=> this.getMoviesHandler()}>
+                    Get movies
+                </button>
+            </>
+        )
+    }
+}
+
+export default connect()(Home);//CONNECT WILL INJET PROPS IN HOME
+
+// MOVIES_REDUCER.JS BELOW
+==>const DEFAULT_STORE = {
+    userName:'Francis',
+    userId:1234
+}
+export default function appReducer(state=DEFAULT_STORE,action){
+    switch(action.type){
+        case 'MOVIES_LIST':
+            return {...state, moviesList: action.payload }
+        default:
+            return state
+    }
+}
+//////////////////////////
+///GET DATA FROM STORE////
+/////////////////////////
