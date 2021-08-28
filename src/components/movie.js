@@ -1,36 +1,38 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-// USEDISPATCH DISPACTCH ACTION
-//USESELECTOR IS MAPSTATETOPROPS
-import { movieData } from "../store/actions"; // IMPORT ACTION
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { movieData } from '../store/actions';
 
 const Movie = (props) => {
-  const movies = useSelector((state) => state.movies); // MOVIES = movies:
-  //USESELECTOR =  state.movies   STATE
-  const dispatch = useDispatch();
+    const movies = useSelector( state => state.movies );
+    const dispatch = useDispatch();
 
-  const getMovie = () => {
-    dispatch(movieData()); // MOVIEDATA IS ACTION
-  };
 
-  console.log(movies);
-  return (
-    <>
-      {movies && movies.movieData ? ( // SHOW DATA
-        <div>
-          <div>Name:{movies.movieData.name}</div>
-          <div>Director:{movies.movieData.director}</div>
-          <div>Year:{movies.movieData.year}</div>
-        </div>
-      ) : null}
-      <button onClick={() => getMovie()}>Get movie</button>
-    </>
-  );
-};
+    const getMovie = () => {
+        dispatch(movieData())
+    }
+
+    console.log(movies)
+    return(
+        <>
+            { movies && movies.movieData ?
+                <div>
+                    <div>Name:{movies.movieData.name}</div>
+                    <div>Director:{movies.movieData.director}</div>
+                    <div>Year:{movies.movieData.year}</div>
+                </div>
+            :null}
+            <button onClick={() => getMovie()}>
+                    Get movie
+            </button>
+        </>
+    )
+}
+
 
 export default Movie;
 
-// import React from 'react';  METHODE 1  NO HOOKS
+
+// import React from 'react';
 // import { connect } from 'react-redux';
 
 // const Movie = (props) => {
@@ -43,7 +45,7 @@ export default Movie;
 //     )
 // }
 
-// const mapStateToProps = (state) => { YOU GET DATA
+// const mapStateToProps = (state) => {
 //     return { movies: state.movies }
 // }
 

@@ -247,3 +247,33 @@ export default Movie;
 /////////////////
 //// TYPES /////
 /////////////////
+// FIRST TYPES.JS  BELOW
+==>export const MOVIES_LIST = 'movies_list';
+export const MOVIE_DATA = 'movie_data';
+// IN ACTION  INDEX.JS  BELOW
+==>import {
+    MOVIES_LIST,
+    MOVIE_DATA
+} from '../types';
+SO INSTEAD OF USING STRING USE VARIABLE AND CAN SEE IF YOU MAKE MISTAKE
+==> 'MOVIES_LIST'  NOW VAIABLE MOVIES_LIST
+/////////////////
+//MAKING REQUESTS/
+/////////////////
+// IN ACTION  INDEX.JS
+==>import axios from 'axios';
+==>export const getUser = () => {
+    const request = axios.get(`https://jsonplaceholder.typicode.com/users`)
+                    .then( response => {
+                        return response.data
+                    });
+                    return {
+                        type:GET_USER,
+                        payload:request
+                    }
+// GO TO REDUCER
+==>  case GET_USER:
+      return {...state, users: action.payload }
+  default:
+      return state
+// DISPATCH HOME.JS 
